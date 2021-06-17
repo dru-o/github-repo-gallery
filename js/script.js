@@ -1,6 +1,7 @@
 //This is selecting the overveiw div
 const overview = document.querySelector(".overview");
 const username = "dru-o";
+const repoList = document.querySelector(".repo-list");
 
 //created function to fetch info from git hub profile using Github API 
 const profileInfo = async function () {
@@ -34,4 +35,23 @@ div.innerHTML = `
 `;
 //Appended the overveiw element 
     overview.append(div);
+    gitRepos();
+};
+
+//New async function to fetch repos
+const gitRepos = async function () {
+//Added parameters to API call (sort repos by most recently updated and show up to 100 repos per page)
+    const fetchRepos = await fetch(`http://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
+//Second await staement returns the JSON resonse
+    const repoData = await fetchRepos.json();
+    displayRepo(repoData);
+};
+
+const displayRepo = function (repos) {
+    for (const repo of repos) {
+        const repoItem = document.createElement("li");
+        repoItem.classList.add("repo");
+        repoItem.innerHTML = `<h3>${repo.name}</h3>`;
+        repoList.append(repoItem);
+    }
 };
