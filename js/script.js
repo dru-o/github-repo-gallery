@@ -45,7 +45,7 @@ div.innerHTML = `
 //New async function to fetch repos.
 const gitRepos = async function () {
 //Added parameters to API call (sort repos by most recently updated and show up to 100 repos per page).
-    const fetchRepos = await fetch(`http://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
+    const fetchRepos = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
 //Second await staement returns the JSON resonse
     const repoData = await fetchRepos.json();
     displayRepo(repoData);
